@@ -1,0 +1,134 @@
+[gd_scene load_steps=11 format=3 uid="uid://s1ng0x2cp2i"]
+
+[ext_resource type="Script" uid="uid://c2bwxb1x6gcw" path="res://Prefabs/Enemy/bunny.gd" id="1_hyjkw"]
+[ext_resource type="Texture2D" uid="uid://bfysyalafaen1" path="res://Resources/bunny.png" id="2_5mnhk"]
+
+[sub_resource type="Animation" id="Animation_gmla7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5ickb"]
+resource_name = "damaged"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1vgnw"]
+_data = {
+&"RESET": SubResource("Animation_gmla7"),
+&"damaged": SubResource("Animation_5ickb")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hakij"]
+radius = 400.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_egk66"]
+radius = 33.0151
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fwpy1"]
+radius = 41.0122
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mfwdu"]
+bg_color = Color(0, 0, 0, 0.607843)
+skew = Vector2(0.5, 0)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gpuxi"]
+bg_color = Color(1, 0, 0, 1)
+skew = Vector2(0.5, 0)
+anti_aliasing = false
+
+[node name="Bunny" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 5
+script = ExtResource("1_hyjkw")
+rate = 1.5
+speed = 150.0
+max_health = 6.5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(5, 5)
+texture = ExtResource("2_5mnhk")
+
+[node name="DamageAnimation" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_1vgnw")
+}
+speed_scale = 0.25
+
+[node name="Detection" type="Area2D" parent="."]
+show_behind_parent = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+show_behind_parent = true
+shape = SubResource("CircleShape2D_hakij")
+debug_color = Color(1, 1, 0, 0.0980392)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+show_behind_parent = true
+shape = SubResource("CircleShape2D_egk66")
+debug_color = Color(1, 1, 1, 0)
+
+[node name="Hitbox" type="Area2D" parent="."]
+show_behind_parent = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+show_behind_parent = true
+shape = SubResource("CircleShape2D_fwpy1")
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="StunTimer" type="Timer" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 2
+
+[node name="Health" type="RichTextLabel" parent="."]
+visible = false
+offset_left = -26.0
+offset_top = -68.0
+offset_right = 29.0
+offset_bottom = -44.0
+text = "HP: 10"
+fit_content = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = -40.0
+theme_override_styles/background = SubResource("StyleBoxFlat_mfwdu")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gpuxi")
+max_value = 5.0
+value = 5.0
+show_percentage = false
+
+[connection signal="body_entered" from="Detection" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_area_2d_body_exited"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]

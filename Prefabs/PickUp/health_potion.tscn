@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcrdiymhpm6a0"]
+
+[ext_resource type="Texture2D" uid="uid://cjm08yol6paty" path="res://Resources/potion.png" id="1_qap2o"]
+[ext_resource type="Script" uid="uid://c6vepy4ms2v78" path="res://Prefabs/PickUp/health_potion.gd" id="2_rdb2v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dio5n"]
+radius = 8.40952
+
+[node name="HealthPotion" type="Sprite2D"]
+texture_filter = 1
+scale = Vector2(5, 5)
+texture = ExtResource("1_qap2o")
+script = ExtResource("2_rdb2v")
+
+[node name="Area2D" type="Area2D" parent="."]
+show_behind_parent = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_dio5n")
+debug_color = Color(0, 1, 0, 0.419608)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

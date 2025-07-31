@@ -1,0 +1,89 @@
+[gd_scene load_steps=11 format=3 uid="uid://cp1ot6f2j0317"]
+
+[ext_resource type="Texture2D" uid="uid://ue2kh5ktfpc0" path="res://Resources/floor_button.png" id="1_yb2se"]
+[ext_resource type="Script" uid="uid://c1bpripidv4uw" path="res://Prefabs/Logic/floor_button.gd" id="2_gnheu"]
+[ext_resource type="Script" uid="uid://ci7n1sf0q3il1" path="res://Prefabs/Logic/line_2d.gd" id="3_8nob8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dio5n"]
+radius = 8.40952
+
+[sub_resource type="Gradient" id="Gradient_ya7w2"]
+colors = PackedColorArray(0, 1, 0.0625, 1, 0, 1, 0.953125, 1)
+
+[sub_resource type="Gradient" id="Gradient_n0lr1"]
+offsets = PackedFloat32Array(0, 0.316901, 0.626761)
+colors = PackedColorArray(0.078125, 0, 1, 1, 0.0392157, 0.509804, 0.976471, 1, 0, 1, 0.953125, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m5clh"]
+gradient = SubResource("Gradient_n0lr1")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Animation" id="Animation_wsjwy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pmm14"]
+resource_name = "use"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.366667),
+"transitions": PackedFloat32Array(2, 1),
+"update": 0,
+"values": [Color(0, 0.179688, 1, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pussu"]
+_data = {
+&"RESET": SubResource("Animation_wsjwy"),
+&"use": SubResource("Animation_pmm14")
+}
+
+[node name="FloorButton" type="Sprite2D"]
+texture_filter = 1
+scale = Vector2(10, 10)
+texture = ExtResource("1_yb2se")
+script = ExtResource("2_gnheu")
+
+[node name="Area2D" type="Area2D" parent="."]
+show_behind_parent = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_dio5n")
+debug_color = Color(0.732135, 0.0015217, 0.875597, 0.419608)
+
+[node name="Line2D" type="Line2D" parent="."]
+show_behind_parent = true
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 34.1, 58.9)
+gradient = SubResource("Gradient_ya7w2")
+texture = SubResource("GradientTexture2D_m5clh")
+texture_mode = 1
+script = ExtResource("3_8nob8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_pussu")
+}
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

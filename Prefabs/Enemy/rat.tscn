@@ -1,0 +1,193 @@
+[gd_scene load_steps=18 format=3 uid="uid://b12qid2xjva87"]
+
+[ext_resource type="Texture2D" uid="uid://cokd1uspt3qjb" path="res://Resources/rat.png" id="1_4nigu"]
+[ext_resource type="Script" uid="uid://xvclf7pdghkx" path="res://Prefabs/Enemy/rat.gd" id="1_v5k6f"]
+[ext_resource type="FontFile" uid="uid://bygy2ydvsctvm" path="res://Resources/vcr_osd_mono.ttf" id="3_nmkan"]
+[ext_resource type="Script" uid="uid://cjwcl4w88rgfq" path="res://Prefabs/Enemy/blood.gd" id="4_etgap"]
+
+[sub_resource type="Animation" id="Animation_gmla7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5ickb"]
+resource_name = "damaged"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1vgnw"]
+_data = {
+&"RESET": SubResource("Animation_gmla7"),
+&"damaged": SubResource("Animation_5ickb")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hakij"]
+radius = 350.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_egk66"]
+radius = 41.1096
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fwpy1"]
+radius = 68.0074
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_si5ra"]
+bg_color = Color(0, 0, 0, 0.607843)
+skew = Vector2(0.5, 0)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xeksu"]
+bg_color = Color(1, 0, 0, 1)
+skew = Vector2(0.5, 0)
+anti_aliasing = false
+
+[sub_resource type="Gradient" id="Gradient_u0f7i"]
+offsets = PackedFloat32Array(0, 0.450704, 0.633803, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.527344, 0.527344, 0.527344, 1, 0.136719, 0.136719, 0.136719, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_27q4e"]
+gradient = SubResource("Gradient_u0f7i")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_jfyac"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.99999, 38.4615), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_qcitf"]
+_limits = [0.99, 6.0, 0.0, 1.0]
+_data = [Vector2(0, 5), 0.0, 0.0, 0, 0, Vector2(1, 2), 2.42928, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+metadata/_snap_count = 5
+
+[sub_resource type="Gradient" id="Gradient_b6ii4"]
+colors = PackedColorArray(1, 1, 1, 0.47451, 1, 1, 1, 0)
+
+[node name="Rat" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 5
+script = ExtResource("1_v5k6f")
+speed = 500.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(5, 5)
+texture = ExtResource("1_4nigu")
+
+[node name="DamageAnimation" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_1vgnw")
+}
+speed_scale = 0.25
+
+[node name="Detection" type="Area2D" parent="."]
+show_behind_parent = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+show_behind_parent = true
+shape = SubResource("CircleShape2D_hakij")
+debug_color = Color(1, 1, 0, 0.0980392)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+show_behind_parent = true
+shape = SubResource("CircleShape2D_egk66")
+debug_color = Color(1, 1, 1, 0)
+
+[node name="Hitbox" type="Area2D" parent="."]
+show_behind_parent = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+show_behind_parent = true
+shape = SubResource("CircleShape2D_fwpy1")
+
+[node name="HitTimer" type="Timer" parent="."]
+
+[node name="StunTimer" type="Timer" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 2
+
+[node name="Health" type="RichTextLabel" parent="."]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -51.0
+offset_top = -68.0
+offset_right = 52.0
+offset_bottom = -44.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/normal_font = ExtResource("3_nmkan")
+theme_override_font_sizes/normal_font_size = 20
+text = "5"
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = -40.0
+theme_override_styles/background = SubResource("StyleBoxFlat_si5ra")
+theme_override_styles/fill = SubResource("StyleBoxFlat_xeksu")
+max_value = 5.0
+value = 5.0
+show_percentage = false
+
+[node name="Blood" type="CPUParticles2D" parent="."]
+texture_filter = 1
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 0.56
+texture = SubResource("GradientTexture2D_27q4e")
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 120.0
+initial_velocity_max = 120.0
+damping_max = 25.0
+damping_curve = SubResource("Curve_jfyac")
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_qcitf")
+color = Color(0.47451, 0.0117647, 0.0117647, 0.396078)
+color_ramp = SubResource("Gradient_b6ii4")
+script = ExtResource("4_etgap")
+
+[connection signal="body_entered" from="Detection" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_area_2d_body_exited"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
+[connection signal="finished" from="Blood" to="Blood" method="_on_finished"]

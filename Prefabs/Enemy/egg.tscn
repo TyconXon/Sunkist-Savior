@@ -1,0 +1,175 @@
+[gd_scene load_steps=15 format=3 uid="uid://dx4alyt4b3u6u"]
+
+[ext_resource type="Script" uid="uid://i3thyks7xgwy" path="res://Prefabs/Enemy/egg.gd" id="1_bi0ao"]
+[ext_resource type="Texture2D" uid="uid://dytijwosvpocd" path="res://Resources/egg.png" id="2_qy5p4"]
+
+[sub_resource type="Animation" id="Animation_gmla7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5ickb"]
+resource_name = "damaged"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1vgnw"]
+_data = {
+&"RESET": SubResource("Animation_gmla7"),
+&"damaged": SubResource("Animation_5ickb")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hakij"]
+radius = 585.001
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_egk66"]
+radius = 33.0151
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fwpy1"]
+radius = 47.0106
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mfwdu"]
+bg_color = Color(0, 0, 0, 0.607843)
+skew = Vector2(0.5, 0)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gpuxi"]
+bg_color = Color(1, 0, 0, 1)
+skew = Vector2(0.5, 0)
+anti_aliasing = false
+
+[sub_resource type="Gradient" id="Gradient_u0f7i"]
+offsets = PackedFloat32Array(0, 0.450704, 0.633803, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.527344, 0.527344, 0.527344, 1, 0.136719, 0.136719, 0.136719, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_27q4e"]
+gradient = SubResource("Gradient_u0f7i")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_uf557"]
+_limits = [0.99, 6.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 6), 7.0, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+metadata/_snap_count = 5
+
+[sub_resource type="Gradient" id="Gradient_b6ii4"]
+colors = PackedColorArray(1, 1, 1, 0.47451, 1, 1, 1, 0)
+
+[node name="Egg" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 5
+script = ExtResource("1_bi0ao")
+spawn = "res://Prefabs/Enemy/spider.tscn"
+speed = 0.0
+max_health = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(5, 5)
+texture = ExtResource("2_qy5p4")
+
+[node name="DamageAnimation" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_1vgnw")
+}
+speed_scale = 0.25
+
+[node name="Detection" type="Area2D" parent="."]
+show_behind_parent = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+show_behind_parent = true
+shape = SubResource("CircleShape2D_hakij")
+debug_color = Color(1, 1, 0, 0.0980392)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+show_behind_parent = true
+shape = SubResource("CircleShape2D_egk66")
+disabled = true
+debug_color = Color(1, 1, 1, 0)
+
+[node name="Hitbox" type="Area2D" parent="."]
+show_behind_parent = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+show_behind_parent = true
+shape = SubResource("CircleShape2D_fwpy1")
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="StunTimer" type="Timer" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 8
+
+[node name="Health" type="RichTextLabel" parent="."]
+visible = false
+offset_left = -26.0
+offset_top = -68.0
+offset_right = 29.0
+offset_bottom = -44.0
+text = "HP: 10"
+fit_content = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+visible = false
+offset_left = -50.0
+offset_top = -50.0
+offset_right = 50.0
+offset_bottom = -40.0
+theme_override_styles/background = SubResource("StyleBoxFlat_mfwdu")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gpuxi")
+max_value = 5.0
+value = 5.0
+show_percentage = false
+
+[node name="SpawnParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 32
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 0.56
+texture = SubResource("GradientTexture2D_27q4e")
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 120.0
+initial_velocity_max = 120.0
+scale_amount_max = 2.0
+scale_amount_curve = SubResource("Curve_uf557")
+color_ramp = SubResource("Gradient_b6ii4")
+
+[connection signal="body_entered" from="Detection" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
+[connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]

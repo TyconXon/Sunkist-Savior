@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://h2dodn8ndv83"]
+
+[ext_resource type="Texture2D" uid="uid://bmegq7eqfvd38" path="res://Resources/key.png" id="1_o15u5"]
+[ext_resource type="Script" uid="uid://84fo8y2j22k3" path="res://Prefabs/PickUp/key.gd" id="2_lfb2o"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uuo2d"]
+
+[node name="Key" type="Sprite2D"]
+texture_filter = 1
+scale = Vector2(5, 5)
+texture = ExtResource("1_o15u5")
+script = ExtResource("2_lfb2o")
+
+[node name="Area2D" type="Area2D" parent="."]
+show_behind_parent = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_uuo2d")
+debug_color = Color(0.337218, 0.62193, 1.92523e-07, 0.42)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

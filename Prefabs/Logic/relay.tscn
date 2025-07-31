@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://b8r44hqgpsdaf"]
+
+[ext_resource type="Texture2D" uid="uid://cna5wmclq7b5s" path="res://Resources/Relay.png" id="1_aj5aa"]
+[ext_resource type="Script" uid="uid://ebkayurvfnbr" path="res://Prefabs/Logic/relay.gd" id="2_u0rl1"]
+[ext_resource type="Script" uid="uid://ci7n1sf0q3il1" path="res://Prefabs/Logic/line_2d.gd" id="3_xi6tj"]
+
+[sub_resource type="Gradient" id="Gradient_ortct"]
+colors = PackedColorArray(0, 1, 0.0625, 1, 0, 1, 0.953125, 1)
+
+[sub_resource type="Gradient" id="Gradient_n0lr1"]
+offsets = PackedFloat32Array(0, 0.316901, 0.626761)
+colors = PackedColorArray(0.078125, 0, 1, 1, 0.0392157, 0.509804, 0.976471, 1, 0, 1, 0.953125, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_oa06s"]
+gradient = SubResource("Gradient_n0lr1")
+width = 8
+height = 8
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[node name="Relay" type="Sprite2D"]
+texture_filter = 1
+scale = Vector2(10, 10)
+texture = ExtResource("1_aj5aa")
+script = ExtResource("2_u0rl1")
+
+[node name="Line2D" type="Line2D" parent="."]
+show_behind_parent = true
+texture_repeat = 2
+points = PackedVector2Array(0, 0, 0.2, 20.3)
+gradient = SubResource("Gradient_ortct")
+texture = SubResource("GradientTexture2D_oa06s")
+texture_mode = 1
+script = ExtResource("3_xi6tj")

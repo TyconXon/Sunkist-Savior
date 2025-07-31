@@ -1,0 +1,176 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvqe4dreek0nr"]
+
+[ext_resource type="Script" uid="uid://bn0pq01oyfpeg" path="res://main_menu.gd" id="1_2lmnf"]
+[ext_resource type="FontFile" uid="uid://d1npjk1wog78j" path="res://Resources/UndertaleSans.ttf" id="1_a0n46"]
+[ext_resource type="Texture2D" uid="uid://8mt5bmwkhnln" path="res://Resources/Complications.png" id="1_ao62x"]
+[ext_resource type="Texture2D" uid="uid://b6sb4sirppvqs" path="res://Resources/2Sunkist-1.png.png" id="3_qn05g"]
+[ext_resource type="Texture2D" uid="uid://c1kbisrdu2vmh" path="res://Resources/fox.png" id="5_uwanh"]
+
+[node name="Main Menu" type="Node2D"]
+scale = Vector2(1.35, 1.35)
+script = ExtResource("1_2lmnf")
+
+[node name="Complications" type="Sprite2D" parent="."]
+position = Vector2(661.87, 356.593)
+scale = Vector2(1.14395, 1.13021)
+texture = ExtResource("1_ao62x")
+
+[node name="2Sunkist-1_png" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(204, 107)
+scale = Vector2(1.55469, 1.55469)
+texture = ExtResource("3_qn05g")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+texture_filter = 1
+offset_top = 120.0
+offset_right = 1146.0
+offset_bottom = 300.0
+theme_override_colors/font_outline_color = Color(0.880614, 0.524998, 1.15514e-06, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/normal_font = ExtResource("1_a0n46")
+theme_override_font_sizes/normal_font_size = 150
+text = " Sunkist Savior"
+shortcut_keys_enabled = false
+
+[node name="Button" type="Button" parent="."]
+offset_left = 20.0
+offset_top = 300.0
+offset_right = 1638.0
+offset_bottom = 445.0
+scale = Vector2(0.69091, 0.786643)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0.148438, 1, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_fonts/font = ExtResource("1_a0n46")
+theme_override_font_sizes/font_size = 120
+text = "Start"
+
+[node name="Level2" type="Button" parent="."]
+offset_left = 20.0
+offset_top = 474.0
+offset_right = 153.0
+offset_bottom = 602.0
+scale = Vector2(0.69091, 0.786643)
+theme_override_fonts/font = ExtResource("1_a0n46")
+theme_override_font_sizes/font_size = 120
+text = "2"
+
+[node name="Level3" type="Button" parent="."]
+offset_left = 112.0
+offset_top = 474.0
+offset_right = 245.0
+offset_bottom = 602.0
+scale = Vector2(0.69091, 0.786643)
+theme_override_fonts/font = ExtResource("1_a0n46")
+theme_override_font_sizes/font_size = 120
+text = "3"
+
+[node name="Level4" type="Button" parent="."]
+offset_left = 204.0
+offset_top = 474.0
+offset_right = 337.0
+offset_bottom = 602.0
+scale = Vector2(0.69091, 0.786643)
+theme_override_fonts/font = ExtResource("1_a0n46")
+theme_override_font_sizes/font_size = 120
+text = "4"
+
+[node name="Level5" type="Button" parent="."]
+offset_left = 296.0
+offset_top = 474.0
+offset_right = 429.0
+offset_bottom = 602.0
+scale = Vector2(0.69091, 0.786643)
+theme_override_fonts/font = ExtResource("1_a0n46")
+theme_override_font_sizes/font_size = 120
+text = "5"
+
+[node name="Level6" type="Button" parent="."]
+offset_left = 388.0
+offset_top = 474.0
+offset_right = 521.0
+offset_bottom = 602.0
+scale = Vector2(0.69091, 0.786643)
+theme_override_fonts/font = ExtResource("1_a0n46")
+theme_override_font_sizes/font_size = 120
+disabled = true
+text = "6"
+
+[node name="Level7" type="Button" parent="."]
+offset_left = 480.0
+offset_top = 474.0
+offset_right = 613.0
+offset_bottom = 602.0
+scale = Vector2(0.69091, 0.786643)
+theme_override_fonts/font = ExtResource("1_a0n46")
+theme_override_font_sizes/font_size = 120
+disabled = true
+text = "7"
+
+[node name="Level8" type="Button" parent="."]
+offset_left = 572.0
+offset_top = 474.0
+offset_right = 705.0
+offset_bottom = 602.0
+scale = Vector2(0.69091, 0.786643)
+theme_override_fonts/font = ExtResource("1_a0n46")
+theme_override_font_sizes/font_size = 120
+disabled = true
+text = "8"
+
+[node name="Level9" type="Button" parent="."]
+offset_left = 664.0
+offset_top = 474.0
+offset_right = 797.0
+offset_bottom = 602.0
+scale = Vector2(0.69091, 0.786643)
+theme_override_fonts/font = ExtResource("1_a0n46")
+theme_override_font_sizes/font_size = 120
+disabled = true
+text = "9"
+
+[node name="Level10" type="Button" parent="."]
+offset_left = 756.0
+offset_top = 474.0
+offset_right = 889.0
+offset_bottom = 602.0
+scale = Vector2(0.69091, 0.786643)
+theme_override_fonts/font = ExtResource("1_a0n46")
+theme_override_font_sizes/font_size = 120
+disabled = true
+text = "10"
+
+[node name="Level11" type="Button" parent="."]
+offset_left = 954.815
+offset_top = 474.074
+offset_right = 1087.81
+offset_bottom = 602.074
+scale = Vector2(0.69091, 0.786643)
+theme_override_fonts/font = ExtResource("1_a0n46")
+theme_override_font_sizes/font_size = 120
+text = "A"
+
+[node name="Level12" type="Button" parent="."]
+offset_left = 1046.81
+offset_top = 474.074
+offset_right = 1179.81
+offset_bottom = 602.074
+scale = Vector2(0.69091, 0.786643)
+theme_override_fonts/font = ExtResource("1_a0n46")
+theme_override_font_sizes/font_size = 120
+disabled = true
+text = "B"
+
+[node name="Fox" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(408, 352)
+scale = Vector2(1.20833, 1.20833)
+texture = ExtResource("5_uwanh")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Level2" to="." method="_on_level_2_pressed"]
+[connection signal="pressed" from="Level3" to="." method="_on_level_3_pressed"]
+[connection signal="pressed" from="Level4" to="." method="_on_level_4_pressed"]
+[connection signal="pressed" from="Level5" to="." method="_on_level_5_pressed"]
+[connection signal="pressed" from="Level11" to="." method="_on_level_11_pressed"]

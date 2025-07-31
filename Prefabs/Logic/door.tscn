@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://tdgbpy27safg"]
+
+[ext_resource type="Texture2D" uid="uid://dhcspl8rdkesg" path="res://Resources/door.png" id="1_13snn"]
+[ext_resource type="Texture2D" uid="uid://bv3k2i7ypls31" path="res://Resources/door_open.png" id="2_ybyhl"]
+[ext_resource type="Script" uid="uid://63f6nmobjbif" path="res://Prefabs/Logic/door.gd" id="3_m5x5d"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pd0oe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_13snn")
+}],
+"loop": true,
+"name": &"closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ybyhl")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w2jji"]
+size = Vector2(16, 16)
+
+[node name="Door" type="AnimatedSprite2D"]
+texture_filter = 1
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_pd0oe")
+animation = &"closed"
+script = ExtResource("3_m5x5d")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(2.86102e-07, 2.86102e-07)
+shape = SubResource("RectangleShape2D_w2jji")
+debug_color = Color(1, 1, 1, 0.42)

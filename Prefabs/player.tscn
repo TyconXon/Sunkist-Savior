@@ -1,0 +1,334 @@
+[gd_scene load_steps=23 format=3 uid="uid://c8sobjmowjusy"]
+
+[ext_resource type="Texture2D" uid="uid://c1kbisrdu2vmh" path="res://Resources/fox.png" id="1_ikmpc"]
+[ext_resource type="Script" uid="uid://dxys00wdhtrd4" path="res://Scripts/player.gd" id="1_k5rse"]
+[ext_resource type="FontFile" uid="uid://bygy2ydvsctvm" path="res://Resources/vcr_osd_mono.ttf" id="3_21nq4"]
+[ext_resource type="Script" uid="uid://dditduptto54m" path="res://pause_controller.gd" id="4_wh0m6"]
+[ext_resource type="FontFile" uid="uid://d1npjk1wog78j" path="res://Resources/UndertaleSans.ttf" id="5_f8kp2"]
+
+[sub_resource type="Animation" id="Animation_gmla7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_5ickb"]
+resource_name = "damaged"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1vgnw"]
+_data = {
+&"RESET": SubResource("Animation_gmla7"),
+&"damaged": SubResource("Animation_5ickb")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bwhqy"]
+radius = 29.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vhuje"]
+size = Vector2(59, 59)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_hxjq4"]
+light_mode = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ep7be"]
+bg_color = Color(0, 0, 0, 0.5)
+
+[sub_resource type="InputEventKey" id="InputEventKey_khlwj"]
+device = -1
+keycode = 82
+unicode = 114
+
+[sub_resource type="Shortcut" id="Shortcut_ur7ao"]
+events = [SubResource("InputEventKey_khlwj")]
+
+[sub_resource type="Gradient" id="Gradient_v23c7"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0, 0.147871, 0.353125, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8ln2l"]
+gradient = SubResource("Gradient_v23c7")
+width = 215
+height = 32
+
+[sub_resource type="Gradient" id="Gradient_54jq5"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0, 0.90625, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1nwk4"]
+gradient = SubResource("Gradient_54jq5")
+width = 215
+height = 32
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yep7m"]
+light_mode = 1
+
+[sub_resource type="Gradient" id="Gradient_uqb0o"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.5, 0.65, 0.7, 1)
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1, 0.5, 0.5, 0.5, 0.392157, 0, 0, 0, 0, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 20
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qg54h"]
+gradient = SubResource("Gradient_uqb0o")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xjnc0"]
+gradient = SubResource("Gradient_uqb0o")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[node name="Player" type="CharacterBody2D" groups=["character", "friendly", "player"]]
+z_index = 5
+collision_layer = 11
+collision_mask = 3
+floor_stop_on_slope = false
+platform_on_leave = 2
+script = ExtResource("1_k5rse")
+
+[node name="DamageAnimation" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_1vgnw")
+}
+speed_scale = 0.25
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_ikmpc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 16)
+shape = SubResource("CircleShape2D_bwhqy")
+debug_color = Color(0.129412, 0.521569, 1, 0)
+
+[node name="Hitbox" type="Area2D" parent="." groups=["friendly"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 16)
+shape = SubResource("RectangleShape2D_vhuje")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="PauseController" type="Node2D" parent="Camera2D"]
+process_mode = 3
+visible = false
+light_mask = 0
+z_index = 15
+material = SubResource("CanvasItemMaterial_hxjq4")
+script = ExtResource("4_wh0m6")
+
+[node name="Panel" type="Panel" parent="Camera2D/PauseController"]
+use_parent_material = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -806.0
+offset_top = -555.0
+offset_right = 872.0
+offset_bottom = 572.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ep7be")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Camera2D/PauseController"]
+z_index = 10
+use_parent_material = true
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -453.0
+offset_top = -220.0
+offset_right = 453.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("3_21nq4")
+theme_override_font_sizes/normal_font_size = 250
+text = "Paused
+"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="Button" type="Button" parent="Camera2D/PauseController"]
+use_parent_material = true
+offset_left = -136.0
+offset_right = 138.0
+offset_bottom = 68.0
+theme_override_fonts/font = ExtResource("5_f8kp2")
+theme_override_font_sizes/font_size = 60
+shortcut = SubResource("Shortcut_ur7ao")
+text = "Main menu"
+
+[node name="HP" type="RichTextLabel" parent="Camera2D"]
+visible = false
+modulate = Color(1, 1, 1, 0.345098)
+texture_filter = 1
+offset_left = -537.0
+offset_top = 282.0
+offset_right = -325.0
+offset_bottom = 308.0
+theme_override_colors/default_color = Color(0, 1, 0.0062499, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("3_21nq4")
+theme_override_font_sizes/normal_font_size = 25
+text = "HP: 2.5/5"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="STAMINA" type="TextureProgressBar" parent="Camera2D"]
+visible = false
+modulate = Color(1, 1, 1, 0.345098)
+offset_left = -537.0
+offset_top = 250.0
+offset_right = -322.0
+offset_bottom = 282.0
+max_value = 1.0
+step = 0.0
+value = 1.0
+texture_under = SubResource("GradientTexture2D_8ln2l")
+texture_progress = SubResource("GradientTexture2D_1nwk4")
+
+[node name="CursorHUD" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.5)
+light_mask = 0
+z_index = 15
+material = SubResource("CanvasItemMaterial_yep7m")
+position = Vector2(-50, -280)
+
+[node name="AMMO" type="RichTextLabel" parent="CursorHUD"]
+texture_filter = 1
+use_parent_material = true
+offset_left = 32.0
+offset_top = -13.0
+offset_right = 167.0
+offset_bottom = 15.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("3_21nq4")
+theme_override_font_sizes/normal_font_size = 25
+text = "PK: 10"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="KEYS" type="RichTextLabel" parent="CursorHUD"]
+texture_filter = 1
+use_parent_material = true
+offset_left = 26.0
+offset_top = 8.0
+offset_right = 129.0
+offset_bottom = 27.0
+theme_override_colors/default_color = Color(1, 0.99375, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("3_21nq4")
+theme_override_font_sizes/normal_font_size = 20
+text = "KE: 0"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="HPBAR" type="TextureProgressBar" parent="CursorHUD"]
+texture_filter = 1
+use_parent_material = true
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 96.0
+offset_bottom = 96.0
+scale = Vector2(0.5, 0.5)
+max_value = 10.0
+step = 0.0
+value = 0.6
+fill_mode = 4
+texture_under = SubResource("GradientTexture2D_qg54h")
+texture_progress = SubResource("GradientTexture2D_xjnc0")
+tint_under = Color(0, 0, 0, 0.5)
+tint_progress = Color(0, 1, 0, 1)
+
+[node name="Death" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Panel" type="Panel" parent="Death"]
+use_parent_material = true
+layout_mode = 1
+offset_left = -941.0
+offset_top = -606.0
+offset_right = 826.0
+offset_bottom = 550.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ep7be")
+
+[node name="DeathText" type="RichTextLabel" parent="Death"]
+z_index = 10
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -664.0
+offset_top = -220.0
+offset_right = 665.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(1, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 12
+theme_override_fonts/normal_font = ExtResource("3_21nq4")
+theme_override_font_sizes/normal_font_size = 250
+text = "You died."
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="DeathTimer" type="Timer" parent="."]
+
+[node name="PawCooldown" type="Timer" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StaminaRecoveryTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 7.0
+one_shot = true
+
+[node name="KnifeCooldown" type="Timer" parent="."]
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_exited" from="Hitbox" to="." method="_on_hitbox_body_exited"]
+[connection signal="pressed" from="Camera2D/PauseController/Button" to="Camera2D/PauseController" method="_on_button_pressed"]
+[connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="PawCooldown" to="." method="_on_paw_cooldown_timeout"]
+[connection signal="timeout" from="StaminaRecoveryTimer" to="." method="_on_stamina_recovery_timer_timeout"]

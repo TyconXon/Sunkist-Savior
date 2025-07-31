@@ -1,0 +1,109 @@
+[gd_scene load_steps=12 format=3 uid="uid://c4540n65kcxps"]
+
+[ext_resource type="Script" uid="uid://mel0yab6otxh" path="res://Prefabs/Bullet/boomerang.gd" id="1_8t3r6"]
+[ext_resource type="Texture2D" uid="uid://cw75yj6dxtvb" path="res://Resources/boomerang.png" id="2_s7rja"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfctx"]
+atlas = ExtResource("2_s7rja")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbx5u"]
+atlas = ExtResource("2_s7rja")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cjiib"]
+atlas = ExtResource("2_s7rja")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dxpv"]
+atlas = ExtResource("2_s7rja")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f2gx1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfctx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbx5u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cjiib")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dxpv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f3s5m"]
+size = Vector2(80, 80)
+
+[sub_resource type="Animation" id="Animation_nole0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4qlie"]
+resource_name = "fade_out"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 9.9),
+"transitions": PackedFloat32Array(0.732042, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m4wee"]
+_data = {
+&"RESET": SubResource("Animation_nole0"),
+&"fade_out": SubResource("Animation_4qlie")
+}
+
+[node name="Boomerang" type="Area2D" groups=["bullet"]]
+script = ExtResource("1_8t3r6")
+deletionTime = 3
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_f2gx1")
+frame_progress = 0.803354
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_f3s5m")
+
+[node name="DeletionTimer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="ReturnTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m4wee")
+}
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="DeletionTimer" to="." method="_on_deletion_timer_timeout"]
+[connection signal="timeout" from="ReturnTimer" to="." method="_on_return_timer_timeout"]
