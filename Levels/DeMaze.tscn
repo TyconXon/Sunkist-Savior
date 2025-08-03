@@ -397,7 +397,8 @@ position = Vector2(4743, 2946)
 scale = Vector2(17.3438, 17.3438)
 
 [node name="Idol" parent="." node_paths=PackedStringArray("thingToModify") instance=ExtResource("6_yim4k")]
-position = Vector2(1076, 937)
+position = Vector2(1153.5, 906.5)
+scale = Vector2(5.0625, 5.0625)
 thingToModify = NodePath("../Batter")
 
 [node name="Batter" parent="." instance=ExtResource("19_tuyr3")]

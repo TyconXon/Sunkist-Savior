@@ -27,7 +27,7 @@ var paw_ready = true
 var stamina = 1:
 	set(value):
 		stamina = staminaEvaluation(value)
-		$Camera2D/STAMINA.value = stamina
+		#$Camera2D/STAMINA.value = stamina
 		
 
 func staminaEvaluation(value):
@@ -51,7 +51,7 @@ func _ready():
 	$CursorHUD.scale = Vector2.ONE / $Camera2D.zoom
 	hudOnSprite = Global.hudType
 	$StaminaRecoveryTimer.wait_time = sprintStaminaRecoveryTime
-	
+	changeZoom(0)
 
 
 func _physics_process(delta):
@@ -103,14 +103,14 @@ func _process(delta):
 	
 	$CursorHUD/AMMO.text = "PK: " + str(ammo)
 	$CursorHUD/KEYS.text = "KE: " + str(keys)
-	$Camera2D/HP.text = "HP: " + str(health) + " / " + str(max_health)
+	#$Camera2D/HP.text = "HP: " + str(health) + " / " + str(max_health)
 	
 func changeZoom(direction):
 	$Camera2D.zoom += direction * Vector2(0.25, 0.25)
 	$CursorHUD.scale = Vector2.ONE / $Camera2D.zoom
 	$Camera2D/PauseController.scale = Vector2.ONE / $Camera2D.zoom
 	$Death.scale = Vector2.ONE / $Camera2D.zoom
-	$Camera2D/HP.scale = Vector2.ONE / $Camera2D.zoom
+	#$Camera2D/HP.scale = Vector2.ONE / $Camera2D.zoom
 	
 	
 	Global.cameraZoom = $Camera2D.zoom
@@ -135,7 +135,8 @@ func _input(event):
 	if event.is_action_pressed("paw"):
 		claw()
 	if event.is_action_pressed("boomerang"):
-		boomerang()
+		#boomerang()
+		pass
 	if event.is_action_pressed("edit"):
 		edit()
 	

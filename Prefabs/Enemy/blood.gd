@@ -1,4 +1,7 @@
 extends CPUParticles2D
 
+@export var isDead = false
+
 func _on_finished() -> void:
-	queue_free()
+	#if isDead:
+		queue_free()

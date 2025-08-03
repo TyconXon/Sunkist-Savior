@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bxotpxi13beet"]
+[gd_scene load_steps=10 format=3 uid="uid://bxotpxi13beet"]
 
 [ext_resource type="Script" uid="uid://hjgicrqvk174" path="res://Prefabs/Enemy/batter.gd" id="1_wpk74"]
 [ext_resource type="Texture2D" uid="uid://crmwvmq33mohf" path="res://Resources/batter.png" id="2_hlfug"]
@@ -44,38 +44,29 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_hakij"]
 radius = 350.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_egk66"]
-radius = 29.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkdg0"]
+size = Vector2(36, 107)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fwpy1"]
-radius = 60.075
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_si5ra"]
-bg_color = Color(0, 0, 0, 0.607843)
-skew = Vector2(0.5, 0)
-anti_aliasing = false
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xeksu"]
-bg_color = Color(1, 0, 0, 1)
-skew = Vector2(0.5, 0)
-anti_aliasing = false
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b38lr"]
+size = Vector2(44, 111)
 
 [node name="Batter" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 5
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_wpk74")
+max_health = 15.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(0, 3.8147e-06)
+position = Vector2(11, 0.103504)
 scale = Vector2(2.34483, 2.34483)
 texture = ExtResource("2_hlfug")
 
 [node name="DamageAnimation" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Sprite2D")
 libraries = {
-"": SubResource("AnimationLibrary_1vgnw")
+&"": SubResource("AnimationLibrary_1vgnw")
 }
 speed_scale = 0.25
 
@@ -89,15 +80,17 @@ debug_color = Color(1, 1, 0, 0.0980392)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 show_behind_parent = true
-shape = SubResource("CircleShape2D_egk66")
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_rkdg0")
 debug_color = Color(1, 1, 1, 0)
 
 [node name="Hitbox" type="Area2D" parent="."]
 show_behind_parent = true
+position = Vector2(3.43323e-05, 0.103504)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 show_behind_parent = true
-shape = SubResource("CircleShape2D_fwpy1")
+shape = SubResource("RectangleShape2D_b38lr")
 
 [node name="HitTimer" type="Timer" parent="."]
 
@@ -115,8 +108,6 @@ offset_left = -50.0
 offset_top = -70.0
 offset_right = 50.0
 offset_bottom = -60.0
-theme_override_styles/background = SubResource("StyleBoxFlat_si5ra")
-theme_override_styles/fill = SubResource("StyleBoxFlat_xeksu")
 max_value = 5.0
 value = 5.0
 show_percentage = false
@@ -139,6 +130,7 @@ text = "5"
 fit_content = true
 scroll_active = false
 shortcut_keys_enabled = false
+horizontal_alignment = 1
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_postprocessing = 1

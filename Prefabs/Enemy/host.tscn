@@ -113,7 +113,7 @@ animation = &"closed"
 [node name="DamageAnimation" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Sprite2D")
 libraries = {
-"": SubResource("AnimationLibrary_1vgnw")
+&"": SubResource("AnimationLibrary_1vgnw")
 }
 speed_scale = 0.25
 

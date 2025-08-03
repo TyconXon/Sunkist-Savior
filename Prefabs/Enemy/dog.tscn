@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://jxepecvvln06"]
+[gd_scene load_steps=15 format=3 uid="uid://jxepecvvln06"]
 
 [ext_resource type="Script" uid="uid://clnqb3n2ryygu" path="res://Prefabs/Enemy/dog.gd" id="1_gl8dd"]
 [ext_resource type="Texture2D" uid="uid://b4erc0ko7bw4b" path="res://Resources/dpg.png" id="2_hncxw"]
+[ext_resource type="Script" uid="uid://cjwcl4w88rgfq" path="res://Prefabs/Enemy/blood.gd" id="3_3nd5i"]
 
 [sub_resource type="Animation" id="Animation_gmla7"]
 length = 0.001
@@ -49,15 +50,32 @@ radius = 33.0151
 [sub_resource type="CircleShape2D" id="CircleShape2D_fwpy1"]
 radius = 59.0339
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mfwdu"]
-bg_color = Color(0, 0, 0, 0.607843)
-skew = Vector2(0.5, 0)
-anti_aliasing = false
+[sub_resource type="Gradient" id="Gradient_u0f7i"]
+offsets = PackedFloat32Array(0, 0.450704, 0.633803, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.527344, 0.527344, 0.527344, 1, 0.136719, 0.136719, 0.136719, 0, 1, 1, 1, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gpuxi"]
-bg_color = Color(1, 0, 0, 1)
-skew = Vector2(0.5, 0)
-anti_aliasing = false
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_f0ya7"]
+gradient = SubResource("Gradient_u0f7i")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_0a5u4"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.99999, 38.4615), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_s53ik"]
+_limits = [0.99, 6.0, 0.0, 1.0]
+_data = [Vector2(0, 5), 0.0, 0.0, 0, 0, Vector2(1, 2), 2.42928, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+metadata/_snap_count = 5
+
+[sub_resource type="Gradient" id="Gradient_jvolp"]
+colors = PackedColorArray(1, 1, 1, 0.47451, 1, 1, 1, 0)
 
 [node name="Dog" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 5
@@ -73,7 +91,7 @@ texture = ExtResource("2_hncxw")
 [node name="DamageAnimation" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Sprite2D")
 libraries = {
-"": SubResource("AnimationLibrary_1vgnw")
+&"": SubResource("AnimationLibrary_1vgnw")
 }
 speed_scale = 0.25
 
@@ -119,11 +137,31 @@ offset_left = -50.0
 offset_top = -50.0
 offset_right = 50.0
 offset_bottom = -40.0
-theme_override_styles/background = SubResource("StyleBoxFlat_mfwdu")
-theme_override_styles/fill = SubResource("StyleBoxFlat_gpuxi")
 max_value = 5.0
 value = 5.0
 show_percentage = false
+
+[node name="Blood" type="CPUParticles2D" parent="."]
+texture_filter = 1
+emitting = false
+amount = 16
+texture = SubResource("GradientTexture2D_f0ya7")
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 0.56
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 120.0
+initial_velocity_max = 120.0
+damping_max = 25.0
+damping_curve = SubResource("Curve_0a5u4")
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_s53ik")
+color = Color(0.47451, 0.0117647, 0.0117647, 0.396078)
+color_ramp = SubResource("Gradient_jvolp")
+script = ExtResource("3_3nd5i")
 
 [connection signal="body_entered" from="Detection" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_area_2d_body_exited"]
@@ -131,3 +169,4 @@ show_percentage = false
 [connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
 [connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
+[connection signal="finished" from="Blood" to="Blood" method="_on_finished"]

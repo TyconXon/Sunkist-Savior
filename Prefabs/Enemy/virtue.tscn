@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4rj7arn4r0cd"]
+[gd_scene load_steps=18 format=3 uid="uid://c4rj7arn4r0cd"]
 
 [ext_resource type="Script" uid="uid://b0f2l41ycad45" path="res://Prefabs/Enemy/virtue.gd" id="1_45nv4"]
 [ext_resource type="Texture2D" uid="uid://bi6gj12gakkor" path="res://Resources/newtrue.png" id="2_8ca0w"]
+[ext_resource type="Script" uid="uid://cjwcl4w88rgfq" path="res://Prefabs/Enemy/blood.gd" id="3_beq11"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5fcoh"]
 atlas = ExtResource("2_8ca0w")
@@ -71,15 +72,32 @@ radius = 41.1096
 [sub_resource type="CircleShape2D" id="CircleShape2D_fwpy1"]
 radius = 62.0725
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_si5ra"]
-bg_color = Color(0, 0, 0, 0.607843)
-skew = Vector2(0.5, 0)
-anti_aliasing = false
+[sub_resource type="Gradient" id="Gradient_7u5b6"]
+offsets = PackedFloat32Array(0, 0.450704, 0.633803, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.527344, 0.527344, 0.527344, 1, 0.136719, 0.136719, 0.136719, 0, 1, 1, 1, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xeksu"]
-bg_color = Color(1, 0, 0, 1)
-skew = Vector2(0.5, 0)
-anti_aliasing = false
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ebs6r"]
+gradient = SubResource("Gradient_7u5b6")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_fpfku"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.99999, 38.4615), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_e6674"]
+_limits = [0.99, 6.0, 0.0, 1.0]
+_data = [Vector2(0, 5), 0.0, 0.0, 0, 0, Vector2(1, 2), 2.42928, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+metadata/_snap_count = 5
+
+[sub_resource type="Gradient" id="Gradient_ls74j"]
+colors = PackedColorArray(1, 1, 1, 0.47451, 1, 1, 1, 0)
 
 [node name="Virtue" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 5
@@ -95,7 +113,7 @@ frame_progress = 0.47565
 [node name="DamageAnimation" type="AnimationPlayer" parent="."]
 root_node = NodePath("")
 libraries = {
-"": SubResource("AnimationLibrary_1vgnw")
+&"": SubResource("AnimationLibrary_1vgnw")
 }
 speed_scale = 0.25
 
@@ -127,24 +145,44 @@ shape = SubResource("CircleShape2D_fwpy1")
 collision_mask = 2
 
 [node name="Health" type="RichTextLabel" parent="."]
-visible = false
 offset_left = -26.0
 offset_top = -68.0
 offset_right = 29.0
 offset_bottom = -44.0
 text = "5"
 fit_content = true
+horizontal_alignment = 1
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 offset_left = -50.0
 offset_top = -50.0
 offset_right = 50.0
 offset_bottom = -40.0
-theme_override_styles/background = SubResource("StyleBoxFlat_si5ra")
-theme_override_styles/fill = SubResource("StyleBoxFlat_xeksu")
 max_value = 5.0
 value = 5.0
 show_percentage = false
+
+[node name="Blood" type="CPUParticles2D" parent="."]
+texture_filter = 1
+emitting = false
+amount = 16
+texture = SubResource("GradientTexture2D_ebs6r")
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 0.56
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 120.0
+initial_velocity_max = 120.0
+damping_max = 25.0
+damping_curve = SubResource("Curve_fpfku")
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_e6674")
+color = Color(0.47451, 0.0117647, 0.0117647, 0.396078)
+color_ramp = SubResource("Gradient_ls74j")
+script = ExtResource("3_beq11")
 
 [connection signal="body_entered" from="Detection" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_area_2d_body_exited"]
@@ -152,3 +190,4 @@ show_percentage = false
 [connection signal="area_exited" from="Hitbox" to="." method="_on_hitbox_area_exited"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
 [connection signal="timeout" from="StunTimer" to="." method="_on_stun_timer_timeout"]
+[connection signal="finished" from="Blood" to="Blood" method="_on_finished"]

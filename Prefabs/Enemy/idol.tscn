@@ -1,15 +1,43 @@
-[gd_scene load_steps=7 format=3 uid="uid://lggdaqegrbql"]
+[gd_scene load_steps=13 format=3 uid="uid://lggdaqegrbql"]
 
 [ext_resource type="Texture2D" uid="uid://qta5eaukoik3" path="res://Resources/idol.png" id="1_t133t"]
 [ext_resource type="Script" uid="uid://8e2m2e12j5y" path="res://Prefabs/Enemy/idol.gd" id="2_207xo"]
 [ext_resource type="Texture2D" uid="uid://dlijogtottxdo" path="res://Resources/VineBeam2.png" id="3_g8ad3"]
 [ext_resource type="Script" uid="uid://ci7n1sf0q3il1" path="res://Prefabs/Logic/line_2d.gd" id="3_lxqad"]
+[ext_resource type="Script" uid="uid://cjwcl4w88rgfq" path="res://Prefabs/Enemy/blood.gd" id="5_e8ah7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dio5n"]
 radius = 8.94427
 
 [sub_resource type="Gradient" id="Gradient_nto5f"]
 colors = PackedColorArray(0, 1, 0.765625, 0.443137, 0, 0.345098, 1, 0.960784)
+
+[sub_resource type="Gradient" id="Gradient_lssys"]
+offsets = PackedFloat32Array(0, 0.450704, 0.633803, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.527344, 0.527344, 0.527344, 1, 0.136719, 0.136719, 0.136719, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_71wjh"]
+gradient = SubResource("Gradient_lssys")
+width = 16
+height = 16
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve" id="Curve_10nxx"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.99999, 38.4615), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_1800g"]
+_limits = [0.99, 6.0, 0.0, 1.0]
+_data = [Vector2(0, 5), 0.0, 0.0, 0, 0, Vector2(1, 2), 2.42928, 0.0, 0, 0]
+point_count = 2
+metadata/_snap_enabled = true
+metadata/_snap_count = 5
+
+[sub_resource type="Gradient" id="Gradient_fugld"]
+colors = PackedColorArray(1, 1, 1, 0.47451, 1, 1, 1, 0)
 
 [node name="Idol" type="Sprite2D"]
 texture_filter = 1
@@ -34,5 +62,28 @@ texture = ExtResource("3_g8ad3")
 texture_mode = 1
 script = ExtResource("3_lxqad")
 
+[node name="Blood" type="CPUParticles2D" parent="."]
+texture_filter = 1
+emitting = false
+amount = 16
+texture = SubResource("GradientTexture2D_71wjh")
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+lifetime_randomness = 0.56
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 120.0
+initial_velocity_max = 120.0
+damping_max = 25.0
+damping_curve = SubResource("Curve_10nxx")
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_1800g")
+color = Color(0.47451, 0.0117647, 0.0117647, 0.396078)
+color_ramp = SubResource("Gradient_fugld")
+script = ExtResource("5_e8ah7")
+
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="finished" from="Blood" to="Blood" method="_on_finished"]

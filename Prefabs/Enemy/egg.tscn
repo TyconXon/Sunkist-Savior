@@ -85,6 +85,7 @@ colors = PackedColorArray(1, 1, 1, 0.47451, 1, 1, 1, 0)
 collision_layer = 5
 script = ExtResource("1_bi0ao")
 spawn = "res://Prefabs/Enemy/spider.tscn"
+start_awake = false
 speed = 0.0
 max_health = 1.0
 
@@ -96,7 +97,7 @@ texture = ExtResource("2_qy5p4")
 [node name="DamageAnimation" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Sprite2D")
 libraries = {
-"": SubResource("AnimationLibrary_1vgnw")
+&"": SubResource("AnimationLibrary_1vgnw")
 }
 speed_scale = 0.25
 
@@ -153,11 +154,11 @@ show_percentage = false
 [node name="SpawnParticles" type="CPUParticles2D" parent="."]
 emitting = false
 amount = 32
+texture = SubResource("GradientTexture2D_27q4e")
 one_shot = true
 explosiveness = 1.0
 randomness = 1.0
 lifetime_randomness = 0.56
-texture = SubResource("GradientTexture2D_27q4e")
 direction = Vector2(0, 0)
 spread = 180.0
 gravity = Vector2(0, 0)

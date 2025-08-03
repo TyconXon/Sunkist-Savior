@@ -83,18 +83,15 @@ max_health = 99999.0
 
 [node name="Egg4" parent="Enemies" instance=ExtResource("4_at7tg")]
 position = Vector2(596, 2683)
-needsLineOfSite = false
 
 [node name="Egg5" parent="Enemies" instance=ExtResource("4_at7tg")]
 position = Vector2(-968, 2723)
 
 [node name="Egg7" parent="Enemies" instance=ExtResource("4_at7tg")]
 position = Vector2(-1985, 2655)
-needsLineOfSite = false
 
 [node name="Egg6" parent="Enemies" instance=ExtResource("4_at7tg")]
 position = Vector2(-173, 2643)
-needsLineOfSite = false
 
 [node name="Dog" parent="Enemies" instance=ExtResource("4_oekpb")]
 position = Vector2(596, 1082)
@@ -117,7 +114,6 @@ position = Vector2(-839, 2045)
 [node name="Egg8" parent="Enemies" instance=ExtResource("4_at7tg")]
 position = Vector2(0, 1275)
 rate = 2.0
-needsLineOfSite = false
 
 [node name="Pick-Ups" type="Node" parent="."]
 

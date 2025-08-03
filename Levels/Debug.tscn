@@ -127,7 +127,7 @@ offset_right = 979.0
 offset_bottom = 83.0
 theme_override_fonts/normal_font = ExtResource("8_5viad")
 theme_override_font_sizes/normal_font_size = 50
-text = "Welcome! Left click attacks, right click stuns, WASD for movement, HUD on cursor."
+text = "Welcome! Left click attacks, right click pushes, WASD for movement, HUD on cursor."
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="."]
 offset_left = -240.0

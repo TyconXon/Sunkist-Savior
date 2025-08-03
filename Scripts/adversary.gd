@@ -22,6 +22,7 @@ var idoled = false:
 @onready var playerReference = get_tree().get_first_node_in_group("player")
 
 func _ready():
+	health = max_health
 	if show_health:
 		$Health.show()
 		$Health.text = str(health)
@@ -42,7 +43,14 @@ func health_set(value):
 		return max_health
 		
 	if(value < health):
+		$DamageAnimation.stop()
 		$DamageAnimation.play("damaged")
+		if $Blood:
+			var miniblood = $Blood.duplicate()
+			add_child(miniblood)
+			
+			miniblood.scale_amount_max = 1.0
+			miniblood.restart()
 		
 		if(wake_on_hurt):
 			awake = true
@@ -83,7 +91,9 @@ func die():
 	handle_drops()
 	dead = true
 	if $Blood:
-		$Blood.emitting = true
+		$Blood.isDead = true
+		$Blood.scale_amount_max = 5.0
+		$Blood.restart()
 		$Blood.reparent(get_parent(), true)
 	queue_free()
 
