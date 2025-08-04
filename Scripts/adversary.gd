@@ -97,7 +97,9 @@ func die():
 		$Blood.reparent(get_parent(), true)
 	queue_free()
 
-func stun(time):
+var stunPower = 1
+
+func stun(time, POWER):
 	stunned = true
 	$StunTimer.start(time)
 	pass
@@ -131,4 +133,5 @@ func can_see_player():
 
 func get_pushed(delta, nSpeed, dir = playerReference.global_position):
 	#move_in_direction(global_position.direction_to(dir) * -1, nSpeed, delta)
-	velocity += (-1 * global_position.direction_to(dir) ) * accel * delta
+	velocity = Vector2.ZERO
+	velocity += (-1 * global_position.direction_to(dir) ) * accel * delta * stunPower

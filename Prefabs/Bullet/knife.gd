@@ -23,10 +23,15 @@ func _on_body_entered(body: Node2D) -> void:
 	if self.is_in_group("friendly"):
 		if !body.is_in_group("friendly"):
 			#queue_free()
+			
 			$CollisionShape2D.disabled = true
+		
 			self.velocity = Vector2.ZERO
 			stabbed = true
 			damage = 0
+			if body.is_in_group("enemy"):
+				body.stun(0.05, 1)
+			
 			self.self_modulate = Color(100,100,100,100)
 			self.reparent(body)
 			$AnimationPlayer.play("fade_out")
