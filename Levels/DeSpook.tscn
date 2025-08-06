@@ -112,7 +112,7 @@ position = Vector2(-3720, 176)
 rate = 1.0
 
 [node name="Bunny5" parent="Enemies" instance=ExtResource("5_gqi1x")]
-position = Vector2(237, 1649)
+position = Vector2(-1117, 1205)
 scale = Vector2(10, 10)
 rate = 0.5
 show_health = true
@@ -122,7 +122,7 @@ loot = "res://Prefabs/flag.tscn"
 lootProperties = {
 "NEXT_SCENE": "res://Levels/DeEggs.tscn"
 }
-max_health = 10.0
+max_health = 20.0
 
 [node name="Dog" parent="Enemies" instance=ExtResource("6_ucxy2")]
 position = Vector2(1792, -1920)

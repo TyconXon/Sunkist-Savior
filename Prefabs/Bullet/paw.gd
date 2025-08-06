@@ -21,3 +21,12 @@ func _on_deletion_timer_timeout() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
 		body.stun(0.75, 10)
+
+func _on_area_entered(area: Area2D) -> void:
+	if not area.is_in_group("friendly") and area.is_in_group("bullet"):
+		area.remove_from_group("enemy")
+		area.add_to_group("friendly")
+		print('a')
+		#area.speed *= -1
+		area.rotate(PI)
+		area.modulate = Color.GREEN
