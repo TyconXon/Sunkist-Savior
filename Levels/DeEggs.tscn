@@ -75,10 +75,11 @@ modulate = Color(0.882918, 0, 0.408934, 1)
 position = Vector2(-2215, 584)
 scale = Vector2(2.47554, 2.47554)
 rate = 5.0
-spawn = "res://Prefabs/Enemy/rat.tscn"
+spawn = "uid://b12qid2xjva87"
 spawnProperties = {
 "speed": 250.0
 }
+start_awake = true
 max_health = 99999.0
 
 [node name="Egg4" parent="Enemies" instance=ExtResource("4_at7tg")]

@@ -85,7 +85,7 @@ wait_time = 10.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_m4wee")
+&"": SubResource("AnimationLibrary_m4wee")
 }
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
