@@ -23,7 +23,7 @@ offset_right = 2607.0
 offset_bottom = 1835.0
 texture = ExtResource("1_hhmrt")
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
+[node name="TileMapLayer" type="TileMapLayer" parent="." groups=["tilemap"]]
 self_modulate = Color(1, 1, 1, 0.588235)
 texture_filter = 1
 scale = Vector2(5, 5)
@@ -149,16 +149,6 @@ theme_override_fonts/normal_font = ExtResource("8_7src0")
 theme_override_font_sizes/normal_font_size = 50
 text = "Level 2: DeDog
 "
-
-[node name="RichTextLabel3" type="RichTextLabel" parent="."]
-offset_left = -891.0
-offset_top = -4754.0
-offset_right = -280.0
-offset_bottom = -4691.0
-theme_override_fonts/normal_font = ExtResource("8_7src0")
-theme_override_font_sizes/normal_font_size = 25
-text = "Made you look 
-(will have secret level at some point)"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="."]
 offset_left = -1121.0
