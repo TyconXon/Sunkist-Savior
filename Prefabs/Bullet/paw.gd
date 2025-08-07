@@ -32,14 +32,14 @@ func _on_area_entered(area: Area2D) -> void:
 			area.damage *= 0.75
 			area.rotate(PI)
 			area.modulate = Color.YELLOW
-			Global.hitstop(0.5)
+			Global.hitstop(0.5, Color.YELLOW)
 			area.projectileboosted = true
 		elif area.is_in_group("friendly") and area.is_in_group("bullet") and not area.projectileboosted:
 			if !area.stabbed:
 				area.modulate = Color.RED
 				area.speed *= 2
 				area.damage *= 2.0
-				Global.hitstop(0.25)
+				Global.hitstop(0.25, Color.RED)
 				area.projectileboosted = true
 				
 			else:

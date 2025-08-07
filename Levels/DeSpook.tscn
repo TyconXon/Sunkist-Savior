@@ -18,11 +18,11 @@
 [ext_resource type="PackedScene" uid="uid://h2dodn8ndv83" path="res://Prefabs/PickUp/key.tscn" id="12_ttett"]
 [ext_resource type="PackedScene" uid="uid://cp1ot6f2j0317" path="res://Prefabs/Logic/floor_button.tscn" id="17_lgvfg"]
 
-[sub_resource type="Gradient" id="Gradient_mnsrj"]
+[sub_resource type="Gradient" id="Gradient_52y3h"]
 colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_o63qe"]
-gradient = SubResource("Gradient_mnsrj")
+gradient = SubResource("Gradient_52y3h")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.9, 0.2)

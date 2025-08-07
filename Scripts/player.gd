@@ -61,7 +61,7 @@ func _physics_process(delta):
 	
 	var lerch_strength = 10
 	var new_position = get_local_mouse_position() * lerch_strength
-	$Camera2D.global_position = lerp(global_position, new_position, delta)
+	$Camera2D.global_position = lerp(global_position, new_position, 0.01)
 	
 	if Input.is_action_pressed("sprint") and stamina > 0.001:
 			$StaminaRecoveryTimer.stop()
@@ -135,7 +135,7 @@ func _input(event):
 	if event.is_action_pressed("paw"):
 		claw()
 	if event.is_action_pressed("boomerang"):
-		Global.hitstop(2)
+		Global.hitstop(2, Color.WHITE)
 		pass
 	if event.is_action_pressed("edit"):
 		edit()

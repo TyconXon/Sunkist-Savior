@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c8sobjmowjusy"]
+[gd_scene load_steps=25 format=3 uid="uid://c8sobjmowjusy"]
 
 [ext_resource type="Texture2D" uid="uid://c1kbisrdu2vmh" path="res://Resources/fox.png" id="1_ikmpc"]
 [ext_resource type="Script" uid="uid://dxys00wdhtrd4" path="res://Scripts/player.gd" id="1_k5rse"]
@@ -23,7 +23,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../Camera2D/PauseController/Panel:modulate")
+tracks/1/path = NodePath("../Camera2D/PauseController/HitDiscolor:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -51,7 +51,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../Camera2D/PauseController/Panel:modulate")
+tracks/1/path = NodePath("../Camera2D/PauseController/HitDiscolor:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -130,6 +130,16 @@ width = 128
 height = 128
 fill = 1
 fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_mnsrj"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_knrd4"]
+gradient = SubResource("Gradient_mnsrj")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.9, 0.2)
 metadata/_snap_enabled = true
 
 [node name="Player" type="CharacterBody2D" groups=["character", "friendly", "player"]]
@@ -249,7 +259,23 @@ value = 1.0
 texture_under = SubResource("GradientTexture2D_8ln2l")
 texture_progress = SubResource("GradientTexture2D_1nwk4")
 
-[node name="Panel" type="Panel" parent="Camera2D/PauseController"]
+[node name="HitDiscolor" type="Panel" parent="Camera2D/PauseController"]
+modulate = Color(1, 1, 1, 0)
+use_parent_material = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -800.0
+offset_top = -540.0
+offset_right = 800.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ep7be")
+
+[node name="HitstopDiscolor" type="Panel" parent="Camera2D/PauseController"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 use_parent_material = true
 anchors_preset = 15
@@ -370,6 +396,17 @@ wait_time = 7.0
 one_shot = true
 
 [node name="KnifeCooldown" type="Timer" parent="."]
+
+[node name="HitstopLight" type="PointLight2D" parent="." groups=["hitstop"]]
+scale = Vector2(10, 10)
+enabled = false
+color = Color(0.849497, 0, 1, 1)
+energy = 12.85
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+texture = SubResource("GradientTexture2D_knrd4")
+texture_scale = 32.62
+height = 75.0
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
