@@ -44,8 +44,8 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_hakij"]
 radius = 350.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_rkdg0"]
-size = Vector2(36, 107)
+[sub_resource type="CircleShape2D" id="CircleShape2D_b38lr"]
+radius = 18.0624
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b38lr"]
 size = Vector2(44, 111)
@@ -81,7 +81,7 @@ debug_color = Color(1, 1, 0, 0.0980392)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 show_behind_parent = true
 position = Vector2(0, -0.5)
-shape = SubResource("RectangleShape2D_rkdg0")
+shape = SubResource("CircleShape2D_b38lr")
 debug_color = Color(1, 1, 1, 0)
 
 [node name="Hitbox" type="Area2D" parent="."]
