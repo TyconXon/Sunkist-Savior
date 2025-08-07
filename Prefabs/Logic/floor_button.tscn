@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cp1ot6f2j0317"]
+[gd_scene load_steps=12 format=3 uid="uid://cp1ot6f2j0317"]
 
 [ext_resource type="Texture2D" uid="uid://ue2kh5ktfpc0" path="res://Resources/floor_button.png" id="1_yb2se"]
 [ext_resource type="Script" uid="uid://c1bpripidv4uw" path="res://Prefabs/Logic/floor_button.gd" id="2_gnheu"]
@@ -46,15 +46,31 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.366667),
+"times": PackedFloat32Array(0, 0.2288),
 "transitions": PackedFloat32Array(2, 1),
 "update": 0,
-"values": [Color(0, 0.179688, 1, 1), Color(1, 1, 1, 1)]
+"values": [Color(1, 1, 1, 1), Color(0, 0.0708175, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ie4dr"]
+resource_name = "unuse"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.0659842, 1, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pussu"]
 _data = {
 &"RESET": SubResource("Animation_wsjwy"),
+&"unuse": SubResource("Animation_ie4dr"),
 &"use": SubResource("Animation_pmm14")
 }
 
@@ -72,9 +88,11 @@ shape = SubResource("CircleShape2D_dio5n")
 debug_color = Color(0.732135, 0.0015217, 0.875597, 0.419608)
 
 [node name="Line2D" type="Line2D" parent="."]
+modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
 texture_repeat = 2
 points = PackedVector2Array(0, 0, 34.1, 58.9)
+width = 5.0
 gradient = SubResource("Gradient_ya7w2")
 texture = SubResource("GradientTexture2D_m5clh")
 texture_mode = 1
@@ -82,8 +100,9 @@ script = ExtResource("3_8nob8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_pussu")
+&"": SubResource("AnimationLibrary_pussu")
 }
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

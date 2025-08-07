@@ -73,13 +73,15 @@ debug_color = Color(0.732135, 0.0015217, 0.875597, 0.419608)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_pussu")
+&"": SubResource("AnimationLibrary_pussu")
 }
 
 [node name="Line2D" type="Line2D" parent="."]
+modulate = Color(0, 0, 0, 1)
 show_behind_parent = true
 texture_repeat = 2
 points = PackedVector2Array(1, 5, 34.1, 58.9)
+width = 5.0
 gradient = SubResource("Gradient_ortct")
 texture = SubResource("GradientTexture2D_oa06s")
 texture_mode = 1

@@ -15,9 +15,11 @@ var activated = false:
 			print(name + " wants to interact with something that doesn't exist!")
 			return
 		if activated:
+			$Line2D.modulate = Color.WHITE
 			for element in propertiesToModify:
 				thingToModify[element] = propertiesToModify[element]
 		if !activated:
+			$Line2D.modulate = Color.BLACK
 			for element in beforeProperties:
 				thingToModify[element] = beforeProperties[element]
 
@@ -34,6 +36,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 				return
 	if body.name == "Player" and playerExclusive:
 		activated = true
+		$AnimationPlayer.stop()
 		$AnimationPlayer.play("use")
 		if triggerOnce:
 			queue_free()
@@ -42,6 +45,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		if(activator == null):
 			activator = body
 		activated = true
+		$AnimationPlayer.stop()
 		$AnimationPlayer.play("use")
 		if triggerOnce:
 			queue_free()
@@ -54,12 +58,21 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		return
 	if body.name == "Player" and playerExclusive:
 		activated = false
-		$AnimationPlayer.play("use")
+		$AnimationPlayer.stop()
+		$AnimationPlayer.play("unuse")
 		
 	elif !playerExclusive and body == activator:
 		print(name + " has lost contact with " + body.name)
 		activated = false
 		activator = null
-		$AnimationPlayer.play("use")
+		$AnimationPlayer.stop()
+		$AnimationPlayer.play("unuse")
 		
 		
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "use":
+		modulate = Color.BLUE
+	if anim_name == "unuse":
+		modulate = Color.WHITE	

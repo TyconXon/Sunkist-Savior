@@ -23,6 +23,7 @@ func _physics_process(delta: float) -> void:
 		var instance = load("res://Prefabs/Bullet/beam.tscn").instantiate()
 		instance.followDuration = followTime
 		instance.attackDelay = chargeTime
+		instance.scale *= scale
 		instance.attackDuration = beamSustain
 		instance.damage = damage
 		get_parent().add_child(instance)

@@ -27,7 +27,7 @@ var paw_ready = true
 var stamina = 1:
 	set(value):
 		stamina = staminaEvaluation(value)
-		#$Camera2D/STAMINA.value = stamina
+		$CursorHUD/STAMINA.value = stamina
 		
 
 func staminaEvaluation(value):
@@ -155,7 +155,7 @@ func claw():
 	if !paw_ready:
 		return
 	var instance = claw_tscn.instantiate()
-	#instance.position = position
+	stamina -= 0.25
 	instance.look_at(get_local_mouse_position())
 	instance.add_to_group("friendly")
 

@@ -15,9 +15,11 @@ var activated = false:
 			print(name + " wants to interact with something that doesn't exist!")
 			return
 		if activated:
+			$Line2D.modulate = Color.WHITE
 			for element in propertiesToModify:
 				thingToModify[element] = propertiesToModify[element]
 		if !activated:
+			$Line2D.modulate = Color.BLACK
 			for element in beforeProperties:
 				thingToModify[element] = beforeProperties[element]
 
@@ -35,12 +37,14 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 				return
 	elif body.name.contains("Paw") and pawExclusive:
 		activated = !activated
+		$AnimationPlayer.stop()
 		$AnimationPlayer.play("use")
 		if triggerOnce:
 			queue_free()
 		
 	elif !pawExclusive and body.is_in_group("bullet"):
 		activated = !activated
+		$AnimationPlayer.stop()
 		$AnimationPlayer.play("use")
 		if triggerOnce:
 			queue_free()
