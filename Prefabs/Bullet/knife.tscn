@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dwps61cmlf7s" path="res://Resources/knife.png" id="1_eogbi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f3s5m"]
-size = Vector2(60, 20)
+size = Vector2(35, 10)
 
 [sub_resource type="Animation" id="Animation_nole0"]
 length = 0.001
@@ -53,6 +53,7 @@ scale = Vector2(5, 5)
 texture = ExtResource("1_eogbi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(12.5, 0)
 shape = SubResource("RectangleShape2D_f3s5m")
 
 [node name="DeletionTimer" type="Timer" parent="."]

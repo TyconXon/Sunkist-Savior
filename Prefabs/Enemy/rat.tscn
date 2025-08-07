@@ -116,8 +116,10 @@ show_behind_parent = true
 shape = SubResource("CircleShape2D_fwpy1")
 
 [node name="HitTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="StunTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 collision_mask = 2

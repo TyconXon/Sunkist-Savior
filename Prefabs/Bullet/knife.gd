@@ -4,6 +4,7 @@ var velocity = Vector2.RIGHT
 var positionToAttack = null
 var stabbed = false
 var already_dropped = false
+var projectileboosted = false
 @export var damage = 1
 @export var speed = 10
 
@@ -15,7 +16,7 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	if !stabbed:
-		position += transform.x * speed
+		position += transform.x * speed * delta * 100
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -27,10 +28,13 @@ func _on_body_entered(body: Node2D) -> void:
 			$CollisionShape2D.disabled = true
 		
 			self.velocity = Vector2.ZERO
+			if body.is_in_group("enemy") && !stabbed:
+				body.stun(0.05, 1)
 			stabbed = true
 			damage = 0
-			if body.is_in_group("enemy"):
-				body.stun(0.05, 1)
+			
+			if projectileboosted:
+				$DeletionTimer.wait_time = 0.01
 			
 			self.self_modulate = Color(100,100,100,100)
 			self.reparent(body)

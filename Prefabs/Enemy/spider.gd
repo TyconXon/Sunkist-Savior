@@ -53,7 +53,7 @@ func _on_hit_timer_timeout() -> void:
 
 
 func _on_hitbox_area_exited(area: Area2D) -> void:
-	if area.get_parent() == target: 
+	if area.get_parent() == target and area.name == "Hitbox": 
 		attacking = false
 	pass # Replace with function body.
 

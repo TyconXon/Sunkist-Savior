@@ -58,6 +58,8 @@ func shoot():
 
 	var instance = load("res://Prefabs/Bullet/knife.tscn").instantiate()
 	instance.position = position
+	instance.scale = scale
+	instance.speed = 10 / scale.x
 	instance.look_at(playerReference.position)
 	instance.positionToAttack = playerReference.position
 	get_parent().add_child(instance)

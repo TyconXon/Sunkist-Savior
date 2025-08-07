@@ -35,8 +35,8 @@ func staminaEvaluation(value):
 
 func die():
 	$DeathTimer.start()
-	$Death.visible = true
-	$Death.reparent(get_parent())
+	$Camera2D/PauseController/Death.visible = true
+	$Camera2D/PauseController/Death.reparent(get_parent())
 	hide()
 	dead = true
 
@@ -109,7 +109,7 @@ func changeZoom(direction):
 	$Camera2D.zoom += direction * Vector2(0.25, 0.25)
 	$CursorHUD.scale = Vector2.ONE / $Camera2D.zoom
 	$Camera2D/PauseController.scale = Vector2.ONE / $Camera2D.zoom
-	$Death.scale = Vector2.ONE / $Camera2D.zoom
+	$Camera2D/PauseController/Death.scale = Vector2.ONE / $Camera2D.zoom
 	#$Camera2D/HP.scale = Vector2.ONE / $Camera2D.zoom
 	
 	
@@ -135,7 +135,7 @@ func _input(event):
 	if event.is_action_pressed("paw"):
 		claw()
 	if event.is_action_pressed("boomerang"):
-		#boomerang()
+		Global.hitstop(2)
 		pass
 	if event.is_action_pressed("edit"):
 		edit()

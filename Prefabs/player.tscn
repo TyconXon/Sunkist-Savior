@@ -264,75 +264,21 @@ grow_vertical = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ep7be")
 
-[node name="CursorHUD" type="Node2D" parent="."]
-modulate = Color(1, 1, 1, 0.5)
-light_mask = 0
-z_index = 15
-material = SubResource("CanvasItemMaterial_yep7m")
-position = Vector2(-50, -280)
-
-[node name="AMMO" type="RichTextLabel" parent="CursorHUD"]
-texture_filter = 1
-use_parent_material = true
-offset_left = 32.0
-offset_top = -13.0
-offset_right = 167.0
-offset_bottom = 15.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_fonts/normal_font = ExtResource("3_21nq4")
-theme_override_font_sizes/normal_font_size = 25
-text = "PK: 10"
-scroll_active = false
-shortcut_keys_enabled = false
-
-[node name="KEYS" type="RichTextLabel" parent="CursorHUD"]
-texture_filter = 1
-use_parent_material = true
-offset_left = 26.0
-offset_top = 8.0
-offset_right = 129.0
-offset_bottom = 27.0
-theme_override_colors/default_color = Color(1, 0.99375, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_fonts/normal_font = ExtResource("3_21nq4")
-theme_override_font_sizes/normal_font_size = 20
-text = "KE: 0"
-scroll_active = false
-shortcut_keys_enabled = false
-
-[node name="HPBAR" type="TextureProgressBar" parent="CursorHUD"]
-texture_filter = 1
-use_parent_material = true
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 96.0
-offset_bottom = 96.0
-scale = Vector2(0.5, 0.5)
-max_value = 10.0
-step = 0.0
-value = 0.6
-fill_mode = 4
-texture_under = SubResource("GradientTexture2D_qg54h")
-texture_progress = SubResource("GradientTexture2D_xjnc0")
-tint_under = Color(0, 0, 0, 0.5)
-tint_progress = Color(0, 1, 0, 1)
-
-[node name="Death" type="Control" parent="."]
+[node name="Death" type="Control" parent="Camera2D/PauseController"]
 visible = false
 layout_mode = 3
 anchors_preset = 0
 
-[node name="Panel" type="Panel" parent="Death"]
+[node name="Panel" type="Panel" parent="Camera2D/PauseController/Death"]
 use_parent_material = true
 layout_mode = 1
-offset_left = -941.0
-offset_top = -606.0
-offset_right = 826.0
-offset_bottom = 550.0
+offset_left = -1551.0
+offset_top = -953.0
+offset_right = 1344.0
+offset_bottom = 913.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ep7be")
 
-[node name="DeathText" type="RichTextLabel" parent="Death"]
+[node name="DeathText" type="RichTextLabel" parent="Camera2D/PauseController/Death"]
 z_index = 10
 layout_mode = 1
 anchors_preset = 8
@@ -353,6 +299,64 @@ theme_override_font_sizes/normal_font_size = 250
 text = "You died."
 scroll_active = false
 shortcut_keys_enabled = false
+
+[node name="CursorHUD" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.5)
+light_mask = 0
+z_index = 15
+material = SubResource("CanvasItemMaterial_yep7m")
+position = Vector2(-50, -280)
+
+[node name="AMMO" type="RichTextLabel" parent="CursorHUD"]
+texture_filter = 1
+use_parent_material = true
+offset_left = 32.0
+offset_top = -13.0
+offset_right = 167.0
+offset_bottom = 15.0
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("3_21nq4")
+theme_override_font_sizes/normal_font_size = 25
+text = "PK: 10"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="KEYS" type="RichTextLabel" parent="CursorHUD"]
+texture_filter = 1
+use_parent_material = true
+offset_left = 26.0
+offset_top = 8.0
+offset_right = 129.0
+offset_bottom = 27.0
+mouse_filter = 2
+theme_override_colors/default_color = Color(1, 0.99375, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/normal_font = ExtResource("3_21nq4")
+theme_override_font_sizes/normal_font_size = 20
+text = "KE: 0"
+scroll_active = false
+shortcut_keys_enabled = false
+
+[node name="HPBAR" type="TextureProgressBar" parent="CursorHUD"]
+texture_filter = 1
+use_parent_material = true
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 96.0
+offset_bottom = 96.0
+scale = Vector2(0.5, 0.5)
+mouse_filter = 2
+mouse_default_cursor_shape = 3
+max_value = 10.0
+step = 0.0
+value = 0.6
+fill_mode = 4
+texture_under = SubResource("GradientTexture2D_qg54h")
+texture_progress = SubResource("GradientTexture2D_xjnc0")
+tint_under = Color(0, 0, 0, 0.5)
+tint_progress = Color(0, 1, 0, 1)
 
 [node name="DeathTimer" type="Timer" parent="."]
 
