@@ -28,6 +28,10 @@ window/size/transparent=true
 window/stretch/mode="canvas_items"
 window/per_pixel_transparency/allowed=true
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/midi/plugin.cfg", "res://addons/retiler/plugin.cfg", "res://addons/tileset_collision_generator_free_version/plugin.cfg")
+
 [global_group]
 
 character="anything that has health"
