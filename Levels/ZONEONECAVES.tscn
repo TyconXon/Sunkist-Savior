@@ -16,21 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://c2k6fbu3gx4q3" path="res://Prefabs/PickUp/nitro.tscn" id="11_s05f5"]
 [ext_resource type="PackedScene" uid="uid://3x17m05rp76g" path="res://Prefabs/PickUp/knifepack.tscn" id="12_s05f5"]
 
-[sub_resource type="Animation" id="Animation_085ym"]
-resource_name = "ghostify"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(3.15, 2.07053, 3.15),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_17742"]
 length = 0.001
 tracks/0/type = "value"
@@ -44,6 +29,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_085ym"]
+resource_name = "ghostify"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(3.15, 2.07053, 3.15),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4ohot"]
@@ -138,22 +138,28 @@ position = Vector2(2470, 2223)
 
 [node name="Bunny" parent="Enemies" instance=ExtResource("5_085ym")]
 position = Vector2(1974, 436)
+rate = 2.0
 
 [node name="Bunny5" parent="Enemies" instance=ExtResource("5_085ym")]
 position = Vector2(3905, 754)
+rate = 2.0
 
 [node name="Bunny6" parent="Enemies" instance=ExtResource("5_085ym")]
 position = Vector2(3925, -606)
+rate = 2.0
 
 [node name="Bunny2" parent="Enemies" instance=ExtResource("5_085ym")]
 position = Vector2(2664, 890)
 scale = Vector2(2.33504, 2.33504)
+rate = 2.0
 
 [node name="Bunny3" parent="Enemies" instance=ExtResource("5_085ym")]
 position = Vector2(3709, -205)
+rate = 2.0
 
 [node name="Bunny4" parent="Enemies" instance=ExtResource("5_085ym")]
 position = Vector2(1015, -1711)
+rate = 2.0
 
 [node name="Batter" parent="Enemies" instance=ExtResource("6_17742")]
 process_mode = 4
@@ -208,9 +214,11 @@ position = Vector2(3218, -2208)
 
 [node name="Dog4" parent="Enemies" instance=ExtResource("7_4ohot")]
 position = Vector2(3934, -845)
+rate = 1.0
 
 [node name="Dog5" parent="Enemies" instance=ExtResource("7_4ohot")]
 position = Vector2(3912, 1119)
+rate = 1.0
 
 [node name="Pick-Ups" type="Node" parent="."]
 
@@ -235,6 +243,15 @@ position = Vector2(1729, -4130)
 [node name="HealthPotion2" parent="Pick-Ups" instance=ExtResource("8_pe60w")]
 position = Vector2(104, -154)
 
+[node name="HealthPotion14" parent="Pick-Ups" instance=ExtResource("8_pe60w")]
+position = Vector2(104, -154)
+
+[node name="HealthPotion15" parent="Pick-Ups" instance=ExtResource("8_pe60w")]
+position = Vector2(104, -154)
+
+[node name="HealthPotion16" parent="Pick-Ups" instance=ExtResource("8_pe60w")]
+position = Vector2(104, -154)
+
 [node name="HealthPotion3" parent="Pick-Ups" instance=ExtResource("8_pe60w")]
 position = Vector2(57, -123)
 
@@ -244,6 +261,12 @@ position = Vector2(1304, 2862)
 [node name="HealthPotion4" parent="Pick-Ups" instance=ExtResource("8_pe60w")]
 position = Vector2(1545, 421)
 
+[node name="HealthPotion12" parent="Pick-Ups" instance=ExtResource("8_pe60w")]
+position = Vector2(1397, 2181)
+
+[node name="HealthPotion13" parent="Pick-Ups" instance=ExtResource("8_pe60w")]
+position = Vector2(1397, 2181)
+
 [node name="HealthPotion5" parent="Pick-Ups" instance=ExtResource("8_pe60w")]
 position = Vector2(1638, 459)
 
@@ -251,6 +274,12 @@ position = Vector2(1638, 459)
 position = Vector2(761, -1308)
 
 [node name="Meat" parent="Pick-Ups" instance=ExtResource("10_32hpc")]
+position = Vector2(117, -100)
+
+[node name="Meat7" parent="Pick-Ups" instance=ExtResource("10_32hpc")]
+position = Vector2(117, -100)
+
+[node name="Meat8" parent="Pick-Ups" instance=ExtResource("10_32hpc")]
 position = Vector2(117, -100)
 
 [node name="Meat2" parent="Pick-Ups" instance=ExtResource("10_32hpc")]
@@ -284,7 +313,7 @@ position = Vector2(-1.99999, 231)
 position = Vector2(1551, 478)
 
 [node name="KnifePack8" parent="Pick-Ups" instance=ExtResource("12_s05f5")]
-position = Vector2(1401, 2194)
+position = Vector2(22.0002, -107)
 
 [node name="KnifePack9" parent="Pick-Ups" instance=ExtResource("12_s05f5")]
 position = Vector2(2760, 1486)

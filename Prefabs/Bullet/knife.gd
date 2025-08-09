@@ -2,6 +2,7 @@ extends Area2D
 
 var velocity = Vector2.RIGHT
 var positionToAttack = null
+var givenAngle = null
 var stabbed = false
 var already_dropped = false
 var projectileboosted = false
@@ -9,10 +10,15 @@ var projectileboosted = false
 @export var speed = 10
 
 func _ready():
-	if positionToAttack == null:
-		positionToAttack = get_global_mouse_position()
-	velocity = velocity.rotated(positionToAttack.angle_to_point(position))
 	
+	if givenAngle == null:
+		if positionToAttack == null:
+			positionToAttack = get_global_mouse_position()
+		velocity = velocity.rotated(positionToAttack.angle_to_point(position))
+	else:
+		print(rad_to_deg(givenAngle.angle_to_point(Vector2.ZERO)))
+		#rotation = givenAngle.angle_to_point(Vector2.ZERO)
+		
 
 func _physics_process(delta: float) -> void:
 	if !stabbed:

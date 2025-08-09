@@ -45,10 +45,10 @@ _data = {
 radius = 400.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_egk66"]
-radius = 33.0151
+radius = 33.0606
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fwpy1"]
-radius = 41.0122
+radius = 52.0865
 
 [sub_resource type="Gradient" id="Gradient_nqwhb"]
 offsets = PackedFloat32Array(0, 0.450704, 0.633803, 1)

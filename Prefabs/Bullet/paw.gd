@@ -2,9 +2,13 @@ extends Area2D
 
 var velocity = Vector2.RIGHT
 @export var damage = 0.5
+var givenAngle = null
 
 func _ready():
-	velocity = velocity.rotated(get_global_mouse_position().angle_to_point(position))
+	if givenAngle == null:
+		velocity = velocity.rotated(get_global_mouse_position().angle_to_point(position))
+	else:
+		velocity = velocity.rotated(givenAngle.angle_to_point(Vector2.ZERO))
 	$DeletionTimer.start()
 	$AnimationPlayer.play("fade_out")
 	position += transform.x * 10

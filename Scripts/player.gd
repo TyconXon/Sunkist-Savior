@@ -94,6 +94,7 @@ func _physics_process(delta):
 			staminaRecovery = false
 	else:
 		isSprinting = false
+		
 			
 	if stamina < 1 and $StaminaRecoveryTimer.is_stopped():
 		$StaminaRecoveryTimer.start()
@@ -104,10 +105,12 @@ func _physics_process(delta):
 		
 	if isSprinting:
 		speedMult = sprintSpeedMultiplier
+	elif Input.is_action_pressed("walk"):
+		speedMult = 0.5
 		
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 	if input_direction == Vector2.ZERO:
-		if velocity.length() > (friction * delta):
+		if velocity.length() > (friction * delta) and not Input.is_action_pressed("walk"):
 			velocity -= velocity.normalized() * (friction * delta)
 		else:
 			velocity = Vector2.ZERO
@@ -120,8 +123,8 @@ func _physics_process(delta):
 	handlePush()
 
 func _process(delta):
-	if(!hudOnSprite):
-		$CursorHUD.position = get_local_mouse_position()
+	#if(!hudOnSprite):
+	$CursorHUD.position = get_global_mouse_position()
 	$CursorHUD/HPBAR.value = health
 	$CursorHUD/HPBAR.max_value = max_health
 	
@@ -155,15 +158,25 @@ func _input(event):
 		pass
 		
 	if event.is_action_pressed("shoot"):
-		shoot()
+		shoot(true)
+	if event.is_action_pressed("shootc") and Input.get_action_strength("shootc") == 1:
+		shoot(false)
 	if event.is_action_pressed("paw"):
-		claw()
+		claw(true)
+	if event.is_action_pressed("pawc"):
+		claw(false)
 	if event.is_action_pressed("boomerang"):
 		Global.hitstop(2, Color.WHITE)
 		pass
 	if event.is_action_pressed("edit"):
 		edit()
 		Global.cheated = true
+	var angle = Input.get_vector("shootleft", "shootright", "shootup", "shootdown")
+	if angle != Vector2.ZERO:
+		$ControllerArm.show()
+		$ControllerArm.rotation = deg_to_rad(-90)+(angle.angle_to_point(Vector2.ZERO))
+	else:
+		$ControllerArm.hide()
 	
 	if event.is_action_pressed("toggle hud"):
 		hudOnSprite = !hudOnSprite
@@ -176,12 +189,18 @@ func _input(event):
 		changeZoom(-1)
 		
 
-func claw():
+func claw(mouse: bool):
 	if !paw_ready:
 		return
 	var instance = claw_tscn.instantiate()
 	stamina -= 0.25
-	instance.look_at(get_local_mouse_position())
+	if mouse:
+		instance.look_at(get_local_mouse_position())
+	else:
+		var angle = Input.get_vector("shootleft", "shootright", "shootup", "shootdown")
+		print(angle)
+		instance.rotation = deg_to_rad(180)+(angle.angle_to_point(Vector2.ZERO))
+
 	instance.add_to_group("friendly")
 
 	add_child(instance)
@@ -211,13 +230,19 @@ func boomerang():
 	$PawCooldown.start()
 
 
-func shoot():
+func shoot(mouse:bool):
 	if ammo <= 0:
 		return
 		
 	var instance = knife_tscn.instantiate()
 	instance.position = position
-	instance.look_at(get_global_mouse_position())
+	if mouse:
+		instance.look_at(get_global_mouse_position())
+		instance.positionToAttack = get_global_mouse_position()
+	else:
+		var angle = Input.get_vector("shootleft", "shootright", "shootup", "shootdown")
+		print(angle)
+		instance.rotation = deg_to_rad(180)+(angle.angle_to_point(Vector2.ZERO))
 	instance.add_to_group("friendly")
 	get_parent().add_child(instance)
 	
