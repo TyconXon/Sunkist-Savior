@@ -9,14 +9,15 @@ var pawCooldown = 1.0
 var onController = false
 var hitstop_light: PointLight2D
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+var stylePoints = 0
+var usedKnifes = 0
+var knifesObtained = 0
+var hitsTaken = 0
+var cheated = false
+var time = 0
+var enemies = 0
+var killed = 0
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 func hitstop(duration : float, color : Color):
 	if hitstop_light == null: 

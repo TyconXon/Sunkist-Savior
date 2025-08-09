@@ -161,20 +161,23 @@ speed_scale = 0.25
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(1, -15)
 texture = ExtResource("1_ikmpc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 16)
+position = Vector2(1, 1)
 shape = SubResource("CircleShape2D_bwhqy")
 debug_color = Color(0.129412, 0.521569, 1, 0)
 
 [node name="Hitbox" type="Area2D" parent="." groups=["friendly"]]
+position = Vector2(1, -15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(0, 16)
 shape = SubResource("RectangleShape2D_vhuje")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1, -15)
 
 [node name="PauseController" type="Node2D" parent="Camera2D"]
 
@@ -330,10 +333,11 @@ shortcut_keys_enabled = false
 
 [node name="CursorHUD" type="Node2D" parent="."]
 modulate = Color(1, 1, 1, 0.5)
+top_level = true
 light_mask = 0
 z_index = 15
 material = SubResource("CanvasItemMaterial_yep7m")
-position = Vector2(-50, -280)
+position = Vector2(-49, -295)
 
 [node name="AMMO" type="RichTextLabel" parent="CursorHUD"]
 texture_filter = 1

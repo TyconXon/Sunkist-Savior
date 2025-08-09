@@ -55,6 +55,7 @@ collision_layer = 5
 motion_mode = 1
 wall_min_slide_angle = 0.0
 script = ExtResource("1_wpk74")
+show_health = true
 max_health = 15.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -126,7 +127,7 @@ theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
 theme_override_constants/outline_size = 5
 theme_override_fonts/normal_font = ExtResource("3_q4hra")
 theme_override_font_sizes/normal_font_size = 20
-text = "5"
+text = "15"
 fit_content = true
 scroll_active = false
 shortcut_keys_enabled = false

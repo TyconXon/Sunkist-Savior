@@ -16,7 +16,7 @@ var hudZoomStep = 2
 @export var sprintStaminaRegenPerSecond = 0.14
 @export var sprintStaminaRecoveryTime = 2.5
 
-
+var finished = false
 
 var isSprinting = false
 var staminaRecovery = false
@@ -43,6 +43,18 @@ func die():
 func _on_death_timer_timeout() -> void:
 	get_tree().reload_current_scene()
 
+func health_set(value):
+	if(value < health):
+		$DamageAnimation.play("damaged")
+		Global.hitsTaken += 1
+		
+	if(value <= 0 && !dead):
+		die()
+		return 0
+	elif(value > max_health):
+		return max_health
+	else:
+		return value
 
 
 
@@ -52,12 +64,24 @@ func _ready():
 	hudOnSprite = Global.hudType
 	$StaminaRecoveryTimer.wait_time = sprintStaminaRecoveryTime
 	changeZoom(0)
+	
+	Global.hitsTaken = 0
+	Global.knifesObtained = ammo
+	Global.stylePoints = 0
+	Global.usedKnifes = 0
+	Global.cheated = false
+	Global.time = 0
+	Global.enemies = 0
+	Global.killed = 0
 
 
 func _physics_process(delta):
 	if dead: 
 		velocity = Vector2.ZERO
 		return
+		
+	if not finished:
+		Global.time+=delta
 	
 	var lerch_strength = 10
 	var new_position = get_local_mouse_position() * lerch_strength
@@ -139,6 +163,7 @@ func _input(event):
 		pass
 	if event.is_action_pressed("edit"):
 		edit()
+		Global.cheated = true
 	
 	if event.is_action_pressed("toggle hud"):
 		hudOnSprite = !hudOnSprite
@@ -197,6 +222,7 @@ func shoot():
 	get_parent().add_child(instance)
 	
 	ammo -= 1
+	Global.usedKnifes += 1
 
 
 func _on_paw_cooldown_timeout() -> void:

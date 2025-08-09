@@ -28,6 +28,7 @@ func _ready():
 		$Health.text = str(health)
 	$ProgressBar.value = health
 	$ProgressBar.max_value = max_health
+	Global.enemies += 1
 
 func health_set(value):
 	
@@ -90,6 +91,7 @@ func handle_drops():
 func die():
 	handle_drops()
 	dead = true
+	Global.killed += 1
 	if $Blood:
 		$Blood.isDead = true
 		$Blood.scale_amount_max = 5.0
